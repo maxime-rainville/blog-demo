@@ -15,7 +15,21 @@
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
-        "lodash": "^4.17.4",
-        "vue": "^2.5.7"
+        "lodash": "^4.17.4"
+    },
+    "dependencies": {
+        "laravel-mix-react": "^1.0.1",
+        "material-design-icons": "^3.0.1",
+        "material-ui": "^1.0.0-beta.22",
+        "material-ui-icons": "^1.0.0-beta.17",
+        "prop-types": "^15.6.0",
+        "react": "^16.1.1",
+        "react-content-loader": "^1.5.2",
+        "react-dom": "^16.1.1",
+        "react-fontawesome": "^1.6.1",
+        "react-jsx-parser": "^1.1.5",
+        "react-router-dom": "^4.2.2",
+        "sass-loader": "^6.0.6",
+        "typeface-roboto": "0.0.45"
     }
 }
