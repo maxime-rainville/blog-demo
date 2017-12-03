@@ -2,8 +2,13 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
-// Variables
-@import "variables";
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
