@@ -25,10 +25,11 @@ export default class Auth {
     init() {
         const user = localStorage.getItem('user');
         if (user) {
+
             this.store.dispatch(userLogin(
-                localStorage.getItem('authResult.accessToken'),
-                localStorage.getItem('authResult.idToken'),
-                localStorage.getItem('expiresAt'),
+                localStorage.getItem('access_token'),
+                localStorage.getItem('id_token'),
+                localStorage.getItem('expires_at'),
                 JSON.parse(user)
             ));
         } else {
@@ -48,6 +49,7 @@ export default class Auth {
         }
 
         this.auth0.parseHash((err, authResult) => {
+            console.dir(authResult);
             if (authResult && authResult.accessToken && authResult.idToken) {
                 this.setSession(authResult);
             } else if (err) {
@@ -58,6 +60,8 @@ export default class Auth {
     }
 
     setSession(authResult) {
+        console.dir(authResult);
+
         // Set the time that the access token will expire at
         const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
         localStorage.setItem('access_token', authResult.accessToken);
