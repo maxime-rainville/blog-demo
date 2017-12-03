@@ -5,7 +5,7 @@ const user = (state = false, action) => {
                 access_token: action.access_token,
                 id_token: action.id_token,
                 expires_at: action.expires_at,
-                user: action.user
+                details: action.details
             };
         case 'USER_LOGOUT':
             return false;

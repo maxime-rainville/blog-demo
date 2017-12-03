@@ -10943,10 +10943,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_redux__ = __webpack_require__(239);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Components_Root__ = __webpack_require__(249);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Reducers__ = __webpack_require__(409);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Components_UI_Auth0Callback__ = __webpack_require__(411);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Libraries_Auth__ = __webpack_require__(415);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Reducers__ = __webpack_require__(409);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Components_UI_Auth0Callback__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Libraries_Auth__ = __webpack_require__(415);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Components_Root__ = __webpack_require__(249);
 
 
 
@@ -10954,15 +10954,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+var store = Object(__WEBPACK_IMPORTED_MODULE_3_redux__["c" /* createStore */])(__WEBPACK_IMPORTED_MODULE_5__Reducers__["a" /* default */]);
 
 
 
+var auth = new __WEBPACK_IMPORTED_MODULE_7__Libraries_Auth__["a" /* default */](store);
 
-var auth = new __WEBPACK_IMPORTED_MODULE_8__Libraries_Auth__["a" /* default */]();
 
-var store = Object(__WEBPACK_IMPORTED_MODULE_3_redux__["c" /* createStore */])(__WEBPACK_IMPORTED_MODULE_6__Reducers__["a" /* default */]);
 
-auth.init(store);
+auth.init();
 
 __WEBPACK_IMPORTED_MODULE_1_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_4_react_redux__["a" /* Provider */],
@@ -10971,15 +10971,15 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_0_re
         __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["a" /* BrowserRouter */],
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_5__Components_Root__["a" /* default */],
-            { onLogin: auth.login },
+            __WEBPACK_IMPORTED_MODULE_8__Components_Root__["a" /* default */],
+            { onLogin: auth.login, onLogout: auth.logout },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Route */], { path: '/auth0', render: function render(_ref) {
                     var location = _ref.location,
                         history = _ref.history;
 
                     auth.setHistory(history);
-                    auth.handleAuthentication(location, store);
-                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__Components_UI_Auth0Callback__["a" /* default */], null);
+                    auth.handleAuthentication(location);
+                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__Components_UI_Auth0Callback__["a" /* default */], null);
                 } })
         )
     )
@@ -32991,7 +32991,8 @@ var styles = function styles(theme) {
 function Root(props) {
   var classes = props.classes,
       children = props.children,
-      onLogin = props.onLogin;
+      onLogin = props.onLogin,
+      onLogout = props.onLogout;
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
@@ -33012,7 +33013,7 @@ function Root(props) {
           { type: 'title', color: 'inherit', className: classes.flex },
           'Title'
         ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__Container_Login__["a" /* default */], { onLogin: onLogin })
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__Container_Login__["a" /* default */], { onLogin: onLogin, onLogout: onLogout })
       )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -33025,7 +33026,8 @@ function Root(props) {
 
 Root.propTypes = {
   classes: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object.isRequired,
-  onLogin: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func
+  onLogin: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
+  onLogout: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_material_ui_styles__["withStyles"])(styles)(Root));
@@ -41852,22 +41854,62 @@ exports.default = _shallowEqual2.default;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_material_ui_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_material_ui_Button__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_icons_AccountCircle__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_icons_AccountCircle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_material_ui_icons_AccountCircle__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_material_ui_Avatar__ = __webpack_require__(460);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_material_ui_Avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_material_ui_Avatar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_styles__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_material_ui_styles__);
 
 
 
 
+
+
+
+var styles = function styles(theme) {
+    return {
+        Login: {
+            display: 'flex'
+        }
+    };
+};
 
 var Login = function Login(_ref) {
     var user = _ref.user,
-        onLogin = _ref.onLogin;
+        onLogin = _ref.onLogin,
+        onLogout = _ref.onLogout,
+        classes = _ref.classes;
+
+    var avatar = void 0;
+    var button = void 0;
+    if (user) {
+        if (user.details.picture) {
+            avatar = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_material_ui_Avatar___default.a, { alt: user.details.name, src: user.details.picture });
+        } else {
+            avatar = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_material_ui_icons_AccountCircle___default.a, null);
+        }
+        button = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_2_material_ui_Button___default.a,
+            { onClick: onLogout },
+            'Logout'
+        );
+    } else {
+        button = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_2_material_ui_Button___default.a,
+            { onClick: onLogin },
+            'Login'
+        );
+    }
+
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        null,
-        user ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_material_ui_icons_AccountCircle___default.a, null) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_2_material_ui_Button___default.a,
-            { color: 'contrast', onClick: onLogin },
-            'Login'
-        )
+        { className: classes.Login },
+        avatar,
+        user && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            null,
+            user.name
+        ),
+        button
     );
 };
 
@@ -41880,7 +41922,7 @@ Login.propTypes = {
     onLogin: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Login);
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5_material_ui_styles__["withStyles"])(styles)(Login));
 
 /***/ }),
 /* 388 */
@@ -43762,7 +43804,7 @@ var user = function user() {
                 access_token: action.access_token,
                 id_token: action.id_token,
                 expires_at: action.expires_at,
-                user: action.user
+                details: action.details
             };
         case 'USER_LOGOUT':
             return false;
@@ -44414,7 +44456,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var Auth = function () {
-    function Auth() {
+    function Auth(store) {
         _classCallCheck(this, Auth);
 
         this.auth0 = new __WEBPACK_IMPORTED_MODULE_0_auth0_js___default.a.WebAuth({
@@ -44431,16 +44473,18 @@ var Auth = function () {
         this.logout = this.logout.bind(this);
         this.handleAuthentication = this.handleAuthentication.bind(this);
         this.isAuthenticated = this.isAuthenticated.bind(this);
+
+        this.store = store;
     }
 
     _createClass(Auth, [{
         key: 'init',
-        value: function init(store) {
+        value: function init() {
             var user = localStorage.getItem('user');
             if (user) {
-                store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["a" /* userLogin */])(localStorage.getItem('authResult.accessToken'), localStorage.getItem('authResult.idToken'), localStorage.getItem('expiresAt'), user));
+                this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["a" /* userLogin */])(localStorage.getItem('authResult.accessToken'), localStorage.getItem('authResult.idToken'), localStorage.getItem('expiresAt'), JSON.parse(user)));
             } else {
-                store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["b" /* userLogout */])());
+                this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["b" /* userLogout */])());
             }
         }
     }, {
@@ -44450,7 +44494,7 @@ var Auth = function () {
         }
     }, {
         key: 'handleAuthentication',
-        value: function handleAuthentication(location, store) {
+        value: function handleAuthentication(location) {
             var _this = this;
 
             if (!/access_token|id_token|error/.test(location.hash)) {
@@ -44461,7 +44505,7 @@ var Auth = function () {
 
             this.auth0.parseHash(function (err, authResult) {
                 if (authResult && authResult.accessToken && authResult.idToken) {
-                    _this.setSession(authResult, store);
+                    _this.setSession(authResult);
                 } else if (err) {
                     _this.history.replace('/home');
                     console.log(err);
@@ -44470,17 +44514,15 @@ var Auth = function () {
         }
     }, {
         key: 'setSession',
-        value: function setSession(authResult, store) {
+        value: function setSession(authResult) {
             // Set the time that the access token will expire at
             var expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
             localStorage.setItem('access_token', authResult.accessToken);
             localStorage.setItem('id_token', authResult.idToken);
             localStorage.setItem('expires_at', expiresAt);
-            localStorage.setItem('user', authResult.idTokenPayload);
+            localStorage.setItem('user', JSON.stringify(authResult.idTokenPayload));
 
-            console.dir(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["a" /* userLogin */])(authResult.accessToken, authResult.idToken, expiresAt, authResult.idTokenPayload));
-
-            store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["a" /* userLogin */])(authResult.accessToken, authResult.idToken, expiresAt, authResult.idTokenPayload));
+            this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["a" /* userLogin */])(authResult.accessToken, authResult.idToken, expiresAt, authResult.idTokenPayload));
 
             // navigate to the home route
             this.history.replace('/home');
@@ -44492,9 +44534,9 @@ var Auth = function () {
             localStorage.removeItem('access_token');
             localStorage.removeItem('id_token');
             localStorage.removeItem('expires_at');
-            localStorage.setItem('user', false);
-            // navigate to the home route
-            this.history.replace('/');
+            localStorage.removeItem('user');
+
+            this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["b" /* userLogout */])());
         }
     }, {
         key: 'isAuthenticated',
@@ -51156,17 +51198,17 @@ module.exports = WebMessageHandler;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return userLogin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return userLogout; });
-var userLogin = function userLogin(access_token, id_token, expires_at, user) {
+var userLogin = function userLogin(access_token, id_token, expires_at, details) {
     return {
         type: 'USER_LOGIN',
         access_token: access_token,
         id_token: id_token,
         expires_at: expires_at,
-        user: user
+        details: details
     };
 };
 
-var userLogout = function userLogout(access_token, id_token, expires_at, user) {
+var userLogout = function userLogout() {
     return {
         type: 'USER_LOGOUT'
     };
@@ -51202,15 +51244,251 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
-        onLogout: function onLogout(_) {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions__["b" /* userLogout */])());
-        }
+        // onLogout: _ => {
+        //     dispatch(userLogout())
+        // }
     };
 };
 
 var Login = Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(__WEBPACK_IMPORTED_MODULE_1__UI_Login__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Login);
+
+/***/ }),
+/* 460 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Avatar = __webpack_require__(461);
+
+Object.defineProperty(exports, 'default', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Avatar).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 461 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(3);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(10);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(4);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _getPrototypeOf = __webpack_require__(5);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(6);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(7);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(8);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(9);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(14);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(12);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _colorManipulator = __webpack_require__(159);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var babelPluginFlowReactPropTypes_proptype_Element = __webpack_require__(1).babelPluginFlowReactPropTypes_proptype_Element || __webpack_require__(0).any;
+
+var babelPluginFlowReactPropTypes_proptype_ElementType = __webpack_require__(1).babelPluginFlowReactPropTypes_proptype_ElementType || __webpack_require__(0).any;
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+      width: 40,
+      height: 40,
+      fontFamily: theme.typography.fontFamily,
+      fontSize: theme.typography.pxToRem(20),
+      borderRadius: '50%',
+      overflow: 'hidden',
+      userSelect: 'none'
+    },
+    colorDefault: {
+      color: theme.palette.background.default,
+      backgroundColor: (0, _colorManipulator.emphasize)(theme.palette.background.default, 0.26)
+    },
+    img: {
+      maxWidth: '100%',
+      width: '100%',
+      height: 'auto',
+      textAlign: 'center'
+    }
+  };
+};
+
+var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Used in combination with `src` or `srcSet` to
+   * provide an alt attribute for the rendered `img` element.
+   */
+  alt: __webpack_require__(0).string,
+
+  /**
+   * Used to render icon or text elements inside the Avatar.
+   * `src` and `alt` props will not be used and no `img` will
+   * be rendered by default.
+   *
+   * This can be an element, or just a string.
+   */
+  children: __webpack_require__(0).oneOfType([__webpack_require__(0).string, typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_Element)]),
+
+  /**
+   * @ignore
+   * The className of the child element.
+   * Used by Chip and ListItemIcon to style the Avatar icon.
+   */
+  childrenClassName: __webpack_require__(0).string,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: __webpack_require__(0).object,
+
+  /**
+   * @ignore
+   */
+  className: __webpack_require__(0).string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired,
+
+  /**
+   * Properties applied to the `img` element when the component
+   * is used to display an image.
+   */
+  imgProps: __webpack_require__(0).object,
+
+  /**
+   * The `sizes` attribute for the `img` element.
+   */
+  sizes: __webpack_require__(0).string,
+
+  /**
+   * The `src` attribute for the `img` element.
+   */
+  src: __webpack_require__(0).string,
+
+  /**
+   * The `srcSet` attribute for the `img` element.
+   */
+  srcSet: __webpack_require__(0).string
+};
+
+var Avatar = function (_React$Component) {
+  (0, _inherits3.default)(Avatar, _React$Component);
+
+  function Avatar() {
+    (0, _classCallCheck3.default)(this, Avatar);
+    return (0, _possibleConstructorReturn3.default)(this, (Avatar.__proto__ || (0, _getPrototypeOf2.default)(Avatar)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(Avatar, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          alt = _props.alt,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          childrenProp = _props.children,
+          childrenClassNameProp = _props.childrenClassName,
+          ComponentProp = _props.component,
+          imgProps = _props.imgProps,
+          sizes = _props.sizes,
+          src = _props.src,
+          srcSet = _props.srcSet,
+          other = (0, _objectWithoutProperties3.default)(_props, ['alt', 'classes', 'className', 'children', 'childrenClassName', 'component', 'imgProps', 'sizes', 'src', 'srcSet']);
+
+
+      var className = (0, _classnames2.default)(classes.root, (0, _defineProperty3.default)({}, classes.colorDefault, childrenProp && !src && !srcSet), classNameProp);
+      var children = null;
+
+      if (childrenProp) {
+        if (childrenClassNameProp && typeof childrenProp !== 'string' && _react2.default.isValidElement(childrenProp)) {
+          var _childrenClassName = (0, _classnames2.default)(childrenClassNameProp, childrenProp.props.className);
+          children = _react2.default.cloneElement(childrenProp, { className: _childrenClassName });
+        } else {
+          children = childrenProp;
+        }
+      } else if (src || srcSet) {
+        children = _react2.default.createElement('img', (0, _extends3.default)({
+          alt: alt,
+          src: src,
+          srcSet: srcSet,
+          sizes: sizes,
+          className: classes.img
+        }, imgProps));
+      }
+
+      return _react2.default.createElement(
+        ComponentProp,
+        (0, _extends3.default)({ className: className }, other),
+        children
+      );
+    }
+  }]);
+  return Avatar;
+}(_react2.default.Component);
+
+Avatar.defaultProps = {
+  component: 'div'
+};
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiAvatar' })(Avatar);
 
 /***/ })
 /******/ ]);

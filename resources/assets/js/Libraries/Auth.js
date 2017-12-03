@@ -3,7 +3,7 @@ import { userLogin, userLogout } from '../actions';
 
 export default class Auth {
 
-    constructor() {
+    constructor(store) {
         this.auth0 = new auth0.WebAuth({
             domain: 'rainville.au.auth0.com',
             clientID: 'uIE6NhBJsPc23dGWmc5gbzzopVs9al6v',
@@ -18,19 +18,21 @@ export default class Auth {
         this.logout = this.logout.bind(this);
         this.handleAuthentication = this.handleAuthentication.bind(this);
         this.isAuthenticated = this.isAuthenticated.bind(this);
+
+        this.store = store;
     }
 
-    init(store) {
+    init() {
         const user = localStorage.getItem('user');
         if (user) {
-            store.dispatch(userLogin(
+            this.store.dispatch(userLogin(
                 localStorage.getItem('authResult.accessToken'),
                 localStorage.getItem('authResult.idToken'),
                 localStorage.getItem('expiresAt'),
-                user
+                JSON.parse(user)
             ));
         } else {
-            store.dispatch(userLogout());
+            this.store.dispatch(userLogout());
         }
     }
 
@@ -38,7 +40,7 @@ export default class Auth {
         this.history = history;
     }
 
-    handleAuthentication(location, store) {
+    handleAuthentication(location) {
         if (!/access_token|id_token|error/.test(location.hash)) {
             console.error('handleAuthentication shouldn\'t be call without proper location parameter');
             this.history.replace('/home');
@@ -47,7 +49,7 @@ export default class Auth {
 
         this.auth0.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
-                this.setSession(authResult, store);
+                this.setSession(authResult);
             } else if (err) {
                 this.history.replace('/home');
                 console.log(err);
@@ -55,28 +57,20 @@ export default class Auth {
         });
     }
 
-    setSession(authResult, store) {
+    setSession(authResult) {
         // Set the time that the access token will expire at
         const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
         localStorage.setItem('access_token', authResult.accessToken);
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('expires_at', expiresAt);
-        localStorage.setItem('user', authResult.idTokenPayload);
+        localStorage.setItem('user', JSON.stringify(authResult.idTokenPayload));
 
-        console.dir(userLogin(
+        this.store.dispatch(userLogin(
             authResult.accessToken,
             authResult.idToken,
             expiresAt,
             authResult.idTokenPayload
         ));
-
-        store.dispatch(userLogin(
-            authResult.accessToken,
-            authResult.idToken,
-            expiresAt,
-            authResult.idTokenPayload
-        ));
-
 
         // navigate to the home route
         this.history.replace('/home');
@@ -87,9 +81,9 @@ export default class Auth {
         localStorage.removeItem('access_token');
         localStorage.removeItem('id_token');
         localStorage.removeItem('expires_at');
-        localStorage.setItem('user', false);
-        // navigate to the home route
-        this.history.replace('/');
+        localStorage.removeItem('user');
+
+        this.store.dispatch(userLogout());
     }
 
     isAuthenticated() {

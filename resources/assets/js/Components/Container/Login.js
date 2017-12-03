@@ -10,9 +10,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLogout: _ => {
-            dispatch(userLogout())
-        }
+        // onLogout: _ => {
+        //     dispatch(userLogout())
+        // }
     }
 }
 

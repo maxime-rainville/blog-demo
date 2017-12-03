@@ -5,25 +5,25 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
 
-import Root from './Components/Root';
 import reducers from './Reducers';
+const store = createStore(reducers);
 
 import Auth0Callback from './Components/UI/Auth0Callback';
 import Auth from './Libraries/Auth'
-const auth = new Auth();
+const auth = new Auth(store);
 
-const store = createStore(reducers);
+import Root from './Components/Root';
 
-auth.init(store);
+auth.init();
 
 ReactDOM.render(
     <Provider store={store}>
         <Router>
-            <Root onLogin={auth.login}>
+            <Root onLogin={auth.login} onLogout={auth.logout}>
 
                 <Route path="/auth0" render={({location, history}) => {
                     auth.setHistory(history);
-                    auth.handleAuthentication(location, store);
+                    auth.handleAuthentication(location);
                     return (<Auth0Callback />);
                 }} />
 

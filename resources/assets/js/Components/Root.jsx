@@ -30,7 +30,7 @@ const styles = theme => ({
 });
 
 function Root(props) {
-  const { classes, children, onLogin } = props;
+  const { classes, children, onLogin, onLogout } = props;
   return (
 <div className={classes.root}>
     <AppBar position="static">
@@ -41,7 +41,7 @@ function Root(props) {
             <Typography type="title" color="inherit" className={classes.flex}>
                 Title
             </Typography>
-            <Login onLogin={onLogin} />
+            <Login onLogin={onLogin} onLogout={onLogout} />
         </Toolbar>
     </AppBar>
 
@@ -55,7 +55,8 @@ function Root(props) {
 
 Root.propTypes = {
   classes: PropTypes.object.isRequired,
-  onLogin: PropTypes.func
+  onLogin: PropTypes.func,
+  onLogout: PropTypes.func
 };
 
 export default withStyles(styles)(Root);
