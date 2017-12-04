@@ -30,15 +30,37 @@ export const userValidate = () => {
         }
 
         const myInit = {
-            method: 'GET',
+            method: 'POST',
             headers: myHeaders,
             mode: 'cors'
         };
 
         console.dir(myInit);
 
-        return fetch(`/api/user`, myInit)
+        return fetch(`/api/posts`, myInit)
             .then(response => response.json())
             .then(json => dispatch(receivePosts(subreddit, json)))
-  }
+    }
+}
+
+export const fetchPosts = () => {
+    return (dispatch, getState) => {
+        // dispatch(requestPosts(subreddit))
+        return fetch(`/api/posts`)
+            .then(response => response.json())
+            .then(json => dispatch(receivePosts(json)))
+    }
+}
+
+export const loadingPosts = () => {
+    return {
+        type: 'POST_LOADING',
+    }
+}
+
+export const receivePosts = (posts) => {
+    return {
+        type: 'POST_RECEIVE',
+        posts
+    }
 }

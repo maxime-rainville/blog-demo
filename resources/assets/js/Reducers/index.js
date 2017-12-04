@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import user from './User';
+import post from './Post';
 
 const blogReducer = combineReducers({
-  user
+  user,
+  post
 })
 
 export default blogReducer;

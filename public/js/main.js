@@ -10459,9 +10459,12 @@ module.exports = IframeHandler;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return userLogin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return userLogout; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return userValidate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return userLogin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return userLogout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return userValidate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return fetchPosts; });
+/* unused harmony export loadingPosts */
+/* unused harmony export receivePosts */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_cross_fetch__ = __webpack_require__(395);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_cross_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_cross_fetch__);
 
@@ -10496,18 +10499,42 @@ var userValidate = function userValidate() {
         }
 
         var myInit = {
-            method: 'GET',
+            method: 'POST',
             headers: myHeaders,
             mode: 'cors'
         };
 
         console.dir(myInit);
 
-        return __WEBPACK_IMPORTED_MODULE_0_cross_fetch___default()('/api/user', myInit).then(function (response) {
+        return __WEBPACK_IMPORTED_MODULE_0_cross_fetch___default()('/api/posts', myInit).then(function (response) {
             return response.json();
         }).then(function (json) {
             return dispatch(receivePosts(subreddit, json));
         });
+    };
+};
+
+var fetchPosts = function fetchPosts() {
+    return function (dispatch, getState) {
+        // dispatch(requestPosts(subreddit))
+        return __WEBPACK_IMPORTED_MODULE_0_cross_fetch___default()('/api/posts').then(function (response) {
+            return response.json();
+        }).then(function (json) {
+            return dispatch(receivePosts(json));
+        });
+    };
+};
+
+var loadingPosts = function loadingPosts() {
+    return {
+        type: 'POST_LOADING'
+    };
+};
+
+var receivePosts = function receivePosts(posts) {
+    return {
+        type: 'POST_RECEIVE',
+        posts: posts
     };
 };
 
@@ -11025,7 +11052,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Reducers__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Components_UI_Auth0Callback__ = __webpack_require__(254);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Libraries_Auth__ = __webpack_require__(357);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Components_Root__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__actions__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Components_Root__ = __webpack_require__(396);
 
 
 
@@ -11042,6 +11070,9 @@ var store = Object(__WEBPACK_IMPORTED_MODULE_3_redux__["d" /* createStore */])(_
 var auth = new __WEBPACK_IMPORTED_MODULE_9__Libraries_Auth__["a" /* default */](store);
 
 
+store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_10__actions__["a" /* fetchPosts */])());
+
+
 
 auth.init();
 
@@ -11052,7 +11083,7 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_0_re
         __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["a" /* BrowserRouter */],
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_10__Components_Root__["a" /* default */],
+            __WEBPACK_IMPORTED_MODULE_11__Components_Root__["a" /* default */],
             { onLogin: auth.login, onLogout: auth.logout },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Route */], { path: '/auth0', render: function render(_ref) {
                     var location = _ref.location,
@@ -33035,11 +33066,14 @@ exports['default'] = thunk;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__User__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Post__ = __webpack_require__(465);
+
 
 
 
 var blogReducer = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* combineReducers */])({
-  user: __WEBPACK_IMPORTED_MODULE_1__User__["a" /* default */]
+  user: __WEBPACK_IMPORTED_MODULE_1__User__["a" /* default */],
+  post: __WEBPACK_IMPORTED_MODULE_2__Post__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (blogReducer);
@@ -38243,7 +38277,7 @@ var Auth = function () {
             redirectUri: 'http://blog.rainville.local/auth0',
             audience: 'https://rainville.au.auth0.com/userinfo',
             responseType: 'token id_token',
-            scope: 'openid profile'
+            scope: 'openid profile email'
         });
 
         this.init = this.init.bind(this);
@@ -38261,9 +38295,9 @@ var Auth = function () {
             var user = localStorage.getItem('user');
             if (user) {
 
-                this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["a" /* userLogin */])(localStorage.getItem('access_token'), localStorage.getItem('id_token'), localStorage.getItem('expires_at'), JSON.parse(user)));
+                this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["b" /* userLogin */])(localStorage.getItem('access_token'), localStorage.getItem('id_token'), localStorage.getItem('expires_at'), JSON.parse(user)));
             } else {
-                this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["b" /* userLogout */])());
+                this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["c" /* userLogout */])());
             }
         }
     }, {
@@ -38304,7 +38338,7 @@ var Auth = function () {
             localStorage.setItem('expires_at', expiresAt);
             localStorage.setItem('user', JSON.stringify(authResult.idTokenPayload));
 
-            this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["a" /* userLogin */])(authResult.accessToken, authResult.idToken, expiresAt, authResult.idTokenPayload));
+            this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["b" /* userLogin */])(authResult.accessToken, authResult.idToken, expiresAt, authResult.idTokenPayload));
 
             // navigate to the home route
             this.history.replace('/home');
@@ -38318,7 +38352,7 @@ var Auth = function () {
             localStorage.removeItem('expires_at');
             localStorage.removeItem('user');
 
-            this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["b" /* userLogout */])());
+            this.store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_1__actions__["c" /* userLogout */])());
         }
     }, {
         key: 'isAuthenticated',
@@ -49871,7 +49905,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         onValidate: function onValidate() {
-            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions__["c" /* userValidate */])());
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions__["d" /* userValidate */])());
         }
     };
 };
@@ -52059,6 +52093,31 @@ exports.default = (0, _withStyles2.default)(styles, { name: 'MuiHiddenCss' })(Hi
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 461 */,
+/* 462 */,
+/* 463 */,
+/* 464 */,
+/* 465 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var post = function post() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { loading: false, posts: [] };
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'POST_FETCHING':
+            return Object.assign({}, state, { loading: true });
+        case 'POST_RECEIVE':
+            return { loading: true, posts: action.posts };
+        default:
+            return state;
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (post);
 
 /***/ })
 /******/ ]);

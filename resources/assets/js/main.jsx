@@ -14,6 +14,9 @@ import Auth0Callback from './Components/UI/Auth0Callback';
 import Auth from './Libraries/Auth'
 const auth = new Auth(store);
 
+import {fetchPosts} from './actions';
+store.dispatch(fetchPosts());
+
 import Root from './Components/Root';
 
 auth.init();

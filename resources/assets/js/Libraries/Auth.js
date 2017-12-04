@@ -10,7 +10,7 @@ export default class Auth {
             redirectUri: 'http://blog.rainville.local/auth0',
             audience: 'https://rainville.au.auth0.com/userinfo',
             responseType: 'token id_token',
-            scope: 'openid profile'
+            scope: 'openid profile email'
         });
 
         this.init = this.init.bind(this);
