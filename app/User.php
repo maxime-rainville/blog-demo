@@ -23,12 +23,12 @@ class User extends Eloquent
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    // protected $hidden = [
+    //     'password', 'remember_token',
+    // ];
 
     public function posts()
     {
-        return $this->hasMany('Posts');
+        return $this->hasMany('App\\Post');
     }
 }
