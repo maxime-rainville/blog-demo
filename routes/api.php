@@ -52,7 +52,7 @@ Route::prefix('posts')->group(function () {
     });
 
     Route::get('/', function (Request $request) {
-        $posts = Post::with('author')->orderBy('created_at', 'desc')->get();
+        $posts = Post::with('author')->orderBy('created_at', 'desc')->get(['id','title', 'content']);
         return response()->json($posts, 200);
     });
 });
