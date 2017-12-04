@@ -10,7 +10,8 @@ import thunkMiddleware from 'redux-thunk'
 import reducers from './Reducers';
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
-import Auth0Callback from './Components/UI/Auth0Callback';
+import Loading from './Components/UI/Loading';
+import PostList from './Components/Container/PostList';
 import Auth from './Libraries/Auth'
 const auth = new Auth(store);
 
@@ -26,10 +27,11 @@ ReactDOM.render(
         <Router>
             <Root onLogin={auth.login} onLogout={auth.logout}>
 
+                <Route exact path="/" component={PostList} />
                 <Route path="/auth0" render={({location, history}) => {
                     auth.setHistory(history);
                     auth.handleAuthentication(location);
-                    return (<Auth0Callback />);
+                    return (<Loading />);
                 }} />
 
             </Root>

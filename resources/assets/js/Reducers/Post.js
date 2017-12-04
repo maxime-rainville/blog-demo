@@ -3,7 +3,7 @@ const post = (state = {loading:false, posts: []}, action) => {
         case 'POST_FETCHING':
             return Object.assign({}, state, {loading: true});
         case 'POST_RECEIVE':
-            return {loading: true, posts: action.posts};
+            return {loading: false, posts: action.posts};
         default:
             return state;
     }

@@ -4,24 +4,16 @@ import { CircularProgress } from 'material-ui/Progress';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
-    Auth0Callback: {
+    Loading: {
         heigth: '100%',
         marginTop: theme.spacing.unit * 3,
     },
 });
 
-const Auth0Callback = ({classes}) => (
-    <div className={classes.Auth0Callback}>
+const Loading = ({classes}) => (
+    <div className={classes.Loading}>
         <CircularProgress size={100} />
     </div>
 )
 
-Auth0Callback.defaultProps = {
-
-}
-
-Auth0Callback.propTypes = {
-
-}
-
-export default withStyles(styles)(Auth0Callback);
+export default withStyles(styles)(Loading);

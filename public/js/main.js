@@ -11050,10 +11050,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_redux_thunk__ = __webpack_require__(251);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_redux_thunk__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Reducers__ = __webpack_require__(252);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Components_UI_Auth0Callback__ = __webpack_require__(254);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Libraries_Auth__ = __webpack_require__(357);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__actions__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Components_Root__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Components_UI_Loading__ = __webpack_require__(466);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Components_Container_PostList__ = __webpack_require__(467);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Libraries_Auth__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__actions__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__Components_Root__ = __webpack_require__(396);
 
 
 
@@ -11067,10 +11068,11 @@ var store = Object(__WEBPACK_IMPORTED_MODULE_3_redux__["d" /* createStore */])(_
 
 
 
-var auth = new __WEBPACK_IMPORTED_MODULE_9__Libraries_Auth__["a" /* default */](store);
+
+var auth = new __WEBPACK_IMPORTED_MODULE_10__Libraries_Auth__["a" /* default */](store);
 
 
-store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_10__actions__["a" /* fetchPosts */])());
+store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_11__actions__["a" /* fetchPosts */])());
 
 
 
@@ -11083,15 +11085,16 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_0_re
         __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["a" /* BrowserRouter */],
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_11__Components_Root__["a" /* default */],
+            __WEBPACK_IMPORTED_MODULE_12__Components_Root__["a" /* default */],
             { onLogin: auth.login, onLogout: auth.logout },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_9__Components_Container_PostList__["a" /* default */] }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Route */], { path: '/auth0', render: function render(_ref) {
                     var location = _ref.location,
                         history = _ref.history;
 
                     auth.setHistory(history);
                     auth.handleAuthentication(location);
-                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__Components_UI_Auth0Callback__["a" /* default */], null);
+                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__Components_UI_Loading__["a" /* default */], null);
                 } })
         )
     )
@@ -33108,48 +33111,7 @@ var user = function user() {
 /* harmony default export */ __webpack_exports__["a"] = (user);
 
 /***/ }),
-/* 254 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_material_ui_Progress__ = __webpack_require__(255);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_material_ui_Progress___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_material_ui_Progress__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_styles__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_material_ui_styles__);
-
-
-
-
-
-var styles = function styles(theme) {
-    return {
-        Auth0Callback: {
-            heigth: '100%',
-            marginTop: theme.spacing.unit * 3
-        }
-    };
-};
-
-var Auth0Callback = function Auth0Callback(_ref) {
-    var classes = _ref.classes;
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: classes.Auth0Callback },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_material_ui_Progress__["CircularProgress"], { size: 100 })
-    );
-};
-
-Auth0Callback.defaultProps = {};
-
-Auth0Callback.propTypes = {};
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_material_ui_styles__["withStyles"])(styles)(Auth0Callback));
-
-/***/ }),
+/* 254 */,
 /* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -52111,13 +52073,854 @@ var post = function post() {
         case 'POST_FETCHING':
             return Object.assign({}, state, { loading: true });
         case 'POST_RECEIVE':
-            return { loading: true, posts: action.posts };
+            return { loading: false, posts: action.posts };
         default:
             return state;
     }
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (post);
+
+/***/ }),
+/* 466 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_material_ui_Progress__ = __webpack_require__(255);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_material_ui_Progress___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_material_ui_Progress__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_styles__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_material_ui_styles__);
+
+
+
+
+
+var styles = function styles(theme) {
+    return {
+        Loading: {
+            heigth: '100%',
+            marginTop: theme.spacing.unit * 3
+        }
+    };
+};
+
+var Loading = function Loading(_ref) {
+    var classes = _ref.classes;
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: classes.Loading },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_material_ui_Progress__["CircularProgress"], { size: 100 })
+    );
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_material_ui_styles__["withStyles"])(styles)(Loading));
+
+/***/ }),
+/* 467 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UI_PostList__ = __webpack_require__(468);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(174);
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return state.post;
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {};
+};
+
+var PostList = Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(__WEBPACK_IMPORTED_MODULE_1__UI_PostList__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (PostList);
+
+/***/ }),
+/* 468 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_material_ui_Button__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_material_ui_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_material_ui_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_styles__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_material_ui_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Post__ = __webpack_require__(470);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Loading__ = __webpack_require__(466);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+
+
+
+
+
+
+var styles = function styles(theme) {
+    return {
+        PostList: {
+            display: 'flex'
+        }
+    };
+};
+
+var PostList = function PostList(_ref) {
+    var posts = _ref.posts,
+        loading = _ref.loading;
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        null,
+        loading && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Loading__["a" /* default */], null),
+        loading || posts.map(function (post) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Post__["a" /* default */], _extends({ key: post._id }, post));
+        })
+    );
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_material_ui_styles__["withStyles"])(styles)(PostList));
+
+/***/ }),
+/* 469 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _defineProperty2 = __webpack_require__(10);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(3);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(4);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _ref;
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(13);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(12);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      padding: theme.spacing.unit * 2,
+      '&:last-child': {
+        paddingBottom: theme.spacing.unit * 3
+      }
+    }
+  };
+};
+
+var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: __webpack_require__(0).object,
+
+  /**
+   * @ignore
+   */
+  className: __webpack_require__(0).string
+};
+
+
+function CardContent(props) {
+  var classes = props.classes,
+      className = props.className,
+      other = (0, _objectWithoutProperties3.default)(props, ['classes', 'className']);
+
+
+  return _react2.default.createElement('div', (0, _extends3.default)({ className: (0, _classnames2.default)(classes.root, className) }, other));
+}
+
+CardContent.propTypes =  true ? (_ref = {
+  classes: __webpack_require__(0).object.isRequired
+}, (0, _defineProperty3.default)(_ref, 'classes', __webpack_require__(0).object), (0, _defineProperty3.default)(_ref, 'className', __webpack_require__(0).string), _ref) : {};
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiCardContent' })(CardContent);
+
+/***/ }),
+/* 470 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_material_ui_Button__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_material_ui_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_material_ui_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_Card__ = __webpack_require__(471);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_Card___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_material_ui_Card__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_material_ui_Typography__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_material_ui_Typography___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_material_ui_Typography__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_styles__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_material_ui_styles__);
+
+
+
+
+
+
+
+var styles = {
+  card: {},
+  media: {
+    width: '100%',
+    height: 'auto'
+  }
+};
+
+var Post = function Post(_ref) {
+  var id = _ref.id,
+      title = _ref.title,
+      summary = _ref.summary,
+      classes = _ref.classes;
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_3_material_ui_Card___default.a,
+    { className: classes.card },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_material_ui_Card__["CardMedia"], {
+      className: classes.media,
+      image: '//via.placeholder.com/300x200',
+      title: '{title}'
+    }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_3_material_ui_Card__["CardContent"],
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_4_material_ui_Typography___default.a,
+        { type: 'headline', component: 'h2' },
+        title
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_4_material_ui_Typography___default.a,
+        { component: 'p' },
+        summary
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_3_material_ui_Card__["CardActions"],
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_2_material_ui_Button___default.a,
+        { dense: true, color: 'primary' },
+        'Share'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_2_material_ui_Button___default.a,
+        { dense: true, color: 'primary' },
+        'Learn More'
+      )
+    )
+  );
+};
+
+Post.defaultProps = {};
+
+Post.propTypes = {};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5_material_ui_styles__["withStyles"])(styles)(Post));
+
+/***/ }),
+/* 471 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Card = __webpack_require__(472);
+
+Object.defineProperty(exports, 'default', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Card).default;
+  }
+});
+
+var _CardContent = __webpack_require__(469);
+
+Object.defineProperty(exports, 'CardContent', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_CardContent).default;
+  }
+});
+
+var _CardActions = __webpack_require__(473);
+
+Object.defineProperty(exports, 'CardActions', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_CardActions).default;
+  }
+});
+
+var _CardMedia = __webpack_require__(474);
+
+Object.defineProperty(exports, 'CardMedia', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_CardMedia).default;
+  }
+});
+
+var _CardHeader = __webpack_require__(475);
+
+Object.defineProperty(exports, 'CardHeader', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_CardHeader).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 472 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(10);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(3);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(4);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Paper = __webpack_require__(399);
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// @inheritedComponent Paper
+
+var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * @ignore
+   */
+  className: __webpack_require__(0).string,
+
+  /**
+   * If `true`, the card will use raised styling.
+   */
+  raised: __webpack_require__(0).bool
+};
+
+
+function Card(props) {
+  var raised = props.raised,
+      other = (0, _objectWithoutProperties3.default)(props, ['raised']);
+
+
+  return _react2.default.createElement(_Paper2.default, (0, _extends3.default)({ elevation: raised ? 8 : 2 }, other));
+}
+
+Card.propTypes =  true ? (0, _defineProperty3.default)({
+  raised: __webpack_require__(0).bool.isRequired,
+  className: __webpack_require__(0).string
+}, 'raised', __webpack_require__(0).bool) : {};
+Card.defaultProps = {
+  raised: false
+};
+
+exports.default = Card;
+
+/***/ }),
+/* 473 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _extends2 = __webpack_require__(3);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(4);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _getPrototypeOf = __webpack_require__(5);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(6);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(7);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(8);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(9);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(13);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(12);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _reactHelpers = __webpack_require__(430);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var babelPluginFlowReactPropTypes_proptype_Node = __webpack_require__(1).babelPluginFlowReactPropTypes_proptype_Node || __webpack_require__(0).any;
+
+var styles = exports.styles = {
+  root: {
+    height: 52,
+    display: 'flex',
+    alignItems: 'center',
+    padding: '2px 4px'
+  },
+  action: {
+    margin: '0 4px'
+  }
+};
+
+var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content of the component.
+   */
+  children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: __webpack_require__(0).object,
+
+  /**
+   * @ignore
+   */
+  className: __webpack_require__(0).string,
+
+  /**
+   * If `true`, the card actions do not have additional margin.
+   */
+  disableActionSpacing: __webpack_require__(0).bool.isRequired
+};
+
+var CardActions = function (_React$Component) {
+  (0, _inherits3.default)(CardActions, _React$Component);
+
+  function CardActions() {
+    (0, _classCallCheck3.default)(this, CardActions);
+    return (0, _possibleConstructorReturn3.default)(this, (CardActions.__proto__ || (0, _getPrototypeOf2.default)(CardActions)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(CardActions, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          disableActionSpacing = _props.disableActionSpacing,
+          children = _props.children,
+          classes = _props.classes,
+          className = _props.className,
+          other = (0, _objectWithoutProperties3.default)(_props, ['disableActionSpacing', 'children', 'classes', 'className']);
+
+
+      return _react2.default.createElement(
+        'div',
+        (0, _extends3.default)({ className: (0, _classnames2.default)(classes.root, className) }, other),
+        disableActionSpacing ? children : (0, _reactHelpers.cloneChildrenWithClassName)(children, classes.action)
+      );
+    }
+  }]);
+  return CardActions;
+}(_react2.default.Component);
+
+CardActions.defaultProps = {
+  disableActionSpacing: false
+};
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiCardActions' })(CardActions);
+
+/***/ }),
+/* 474 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _defineProperty2 = __webpack_require__(10);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(3);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(4);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _getPrototypeOf = __webpack_require__(5);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(6);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(7);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(8);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(9);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(13);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _warning = __webpack_require__(2);
+
+var _warning2 = _interopRequireDefault(_warning);
+
+var _withStyles = __webpack_require__(12);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var babelPluginFlowReactPropTypes_proptype_ElementType = __webpack_require__(1).babelPluginFlowReactPropTypes_proptype_ElementType || __webpack_require__(0).any;
+
+var styles = exports.styles = {
+  root: {
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center'
+  },
+  rootMedia: {
+    width: '100%'
+  }
+};
+
+var mediaComponents = ['video', 'audio', 'picture', 'iframe', 'img'];
+
+var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: __webpack_require__(0).object,
+
+  /**
+   * @ignore
+   */
+  className: __webpack_require__(0).string,
+
+  /**
+   * Image to be displayed as a background image.
+   * Either `image` or `src` prop must be specified.
+   * Note that caller must specify height otherwise the image will not be visible.
+   */
+  image: __webpack_require__(0).string,
+
+  /**
+   * An alias for `image` property.
+   * Available only with media components.
+   * Media components: `video`, `audio`, `picture`, `iframe`, `img`.
+   */
+  src: __webpack_require__(0).string,
+
+  /**
+   * @ignore
+   */
+  style: __webpack_require__(0).object,
+
+  /**
+   * Component for rendering image.
+   */
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired
+};
+
+var CardMedia = function (_React$Component) {
+  (0, _inherits3.default)(CardMedia, _React$Component);
+
+  function CardMedia() {
+    (0, _classCallCheck3.default)(this, CardMedia);
+    return (0, _possibleConstructorReturn3.default)(this, (CardMedia.__proto__ || (0, _getPrototypeOf2.default)(CardMedia)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(CardMedia, [{
+    key: 'render',
+    value: function render() {
+      var _classNames;
+
+      var _props = this.props,
+          classes = _props.classes,
+          className = _props.className,
+          image = _props.image,
+          style = _props.style,
+          src = _props.src,
+          ComponentProp = _props.component,
+          other = (0, _objectWithoutProperties3.default)(_props, ['classes', 'className', 'image', 'style', 'src', 'component']);
+
+
+       true ? (0, _warning2.default)(Boolean(image || src), 'Material-UI: either `image` or `src` property must be specified.') : void 0;
+
+      var isMediaComponent = mediaComponents.indexOf(ComponentProp) !== -1;
+      var composedStyle = !isMediaComponent && image ? (0, _extends3.default)({ backgroundImage: 'url(' + image + ')' }, style) : style;
+      var composedClassName = (0, _classnames2.default)((_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.root, !isMediaComponent), (0, _defineProperty3.default)(_classNames, classes.rootMedia, isMediaComponent), _classNames), className);
+
+      return _react2.default.createElement(ComponentProp, (0, _extends3.default)({
+        className: composedClassName,
+        style: composedStyle,
+        src: isMediaComponent ? image || src : undefined
+      }, other));
+    }
+  }]);
+  return CardMedia;
+}(_react2.default.Component);
+
+CardMedia.defaultProps = {
+  component: 'div'
+};
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiCardMedia' })(CardMedia);
+
+/***/ }),
+/* 475 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = undefined;
+
+var _defineProperty2 = __webpack_require__(10);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(3);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(4);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _ref;
+// @inheritedComponent CardContent
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(13);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _withStyles = __webpack_require__(12);
+
+var _withStyles2 = _interopRequireDefault(_withStyles);
+
+var _Typography = __webpack_require__(403);
+
+var _Typography2 = _interopRequireDefault(_Typography);
+
+var _CardContent = __webpack_require__(469);
+
+var _CardContent2 = _interopRequireDefault(_CardContent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var babelPluginFlowReactPropTypes_proptype_Node = __webpack_require__(1).babelPluginFlowReactPropTypes_proptype_Node || __webpack_require__(0).any;
+
+var styles = exports.styles = function styles(theme) {
+  return {
+    root: {
+      display: 'flex',
+      alignItems: 'center'
+    },
+    avatar: {
+      flex: '0 0 auto',
+      marginRight: theme.spacing.unit * 2
+    },
+    action: {
+      flex: '0 0 auto',
+      alignSelf: 'flex-start',
+      marginTop: theme.spacing.unit * -1,
+      marginRight: theme.spacing.unit * -2
+    },
+    content: {
+      flex: '1 1 auto'
+    },
+    title: {},
+    subheader: {}
+  };
+};
+
+var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The action to display in the card header.
+   */
+  action: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * The Avatar for the Card Header.
+   */
+  avatar: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: __webpack_require__(0).object,
+
+  /**
+   * @ignore
+   */
+  className: __webpack_require__(0).string,
+
+  /**
+   * The content of the component.
+   */
+  subheader: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * The content of the Card Title.
+   */
+  title: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_Node)
+};
+
+
+function CardHeader(props) {
+  var avatar = props.avatar,
+      action = props.action,
+      classes = props.classes,
+      classNameProp = props.className,
+      subheader = props.subheader,
+      title = props.title,
+      other = (0, _objectWithoutProperties3.default)(props, ['avatar', 'action', 'classes', 'className', 'subheader', 'title']);
+
+  // Adjustments that depend on the presence of an avatar
+
+  var titleType = avatar ? 'body2' : 'headline';
+  var subheaderType = avatar ? 'body2' : 'body1';
+
+  return _react2.default.createElement(
+    _CardContent2.default,
+    (0, _extends3.default)({ className: (0, _classnames2.default)(classes.root, classNameProp) }, other),
+    avatar && _react2.default.createElement(
+      'div',
+      { className: classes.avatar },
+      avatar
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: classes.content },
+      _react2.default.createElement(
+        _Typography2.default,
+        { type: titleType, component: 'span', className: classes.title },
+        title
+      ),
+      _react2.default.createElement(
+        _Typography2.default,
+        {
+          type: subheaderType,
+          component: 'span',
+          color: 'secondary',
+          className: classes.subheader
+        },
+        subheader
+      )
+    ),
+    action && _react2.default.createElement(
+      'div',
+      { className: classes.action },
+      action
+    )
+  );
+}
+
+CardHeader.propTypes =  true ? (_ref = {
+  classes: __webpack_require__(0).object.isRequired,
+  action: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_Node),
+  avatar: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_Node)
+}, (0, _defineProperty3.default)(_ref, 'classes', __webpack_require__(0).object), (0, _defineProperty3.default)(_ref, 'className', __webpack_require__(0).string), (0, _defineProperty3.default)(_ref, 'subheader', typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_Node)), (0, _defineProperty3.default)(_ref, 'title', typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : __webpack_require__(0).shape(babelPluginFlowReactPropTypes_proptype_Node)), _ref) : {};
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiCardHeader' })(CardHeader);
 
 /***/ })
 /******/ ]);
