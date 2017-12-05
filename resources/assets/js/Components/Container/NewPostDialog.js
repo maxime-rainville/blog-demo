@@ -1,16 +1,22 @@
 import { connect } from 'react-redux';
 import DialogUI from '../UI/NewPostDialog';
-import { userValidate } from '../../actions'
+import { userValidate, editingTitleChange, editingContentChange, editingCancel, editingSave } from '../../actions'
 
 const mapStateToProps = state => {
     return {
-        show: state.editing.showNewPostDialog
+        show: state.editing.showNewPostDialog,
+        title: state.editing.title,
+        content: state.editing.content,
+
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSave: () => {console.log('save dialog')}
+        onSave: () => {dispatch(editingSave())},
+        onContentChange: (event) => dispatch(editingContentChange(event)),
+        onTitleChange: (event) => dispatch(editingTitleChange(event.target.value)),
+        onCancel: () => dispatch(editingCancel())
     }
 }
 

@@ -11,7 +11,7 @@ const styles = theme => ({
     },
 });
 
-const Login = ({user, onLogin, onLogout, classes, onValidate}) => {
+const Login = ({user, onLogin, onLogout, classes}) => {
     let avatar
     let button
     if (user) {
@@ -30,7 +30,6 @@ const Login = ({user, onLogin, onLogout, classes, onValidate}) => {
         {avatar}
         {user && (<span>{user.name}</span>)}
         {button}
-        <Button onClick={onValidate}>Validate</Button>
     </div>
 )}
 

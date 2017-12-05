@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import LoginUI from '../UI/Login';
-import { userValidate } from '../../actions'
 
 const mapStateToProps = state => {
     return {
@@ -10,9 +9,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onValidate: () => {
-            dispatch(userValidate())
-        }
     }
 }
 

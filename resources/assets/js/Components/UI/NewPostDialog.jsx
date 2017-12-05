@@ -25,7 +25,7 @@ const Transition = (props) => {
   return <Slide direction="up" {...props} />;
 }
 
-const NewPostDialog = ({show, classes, onSave, onCancel}) => (
+const NewPostDialog = ({show, classes, onSave, onCancel, title, content, onTitleChange, onContentChange}) => (
     <Dialog open={show} onRequestClose={onCancel} fullWidth transition={Transition}>
         <DialogTitle>Create a new Post</DialogTitle>
             <DialogContent>
@@ -34,8 +34,10 @@ const NewPostDialog = ({show, classes, onSave, onCancel}) => (
                     id="title"
                     label="Post title"
                     type="text"
-                    fullWidth />
-                <ReactQuill />
+                    fullWidth
+                    required
+                    onChange={onTitleChange} />
+                <ReactQuill onChange={onContentChange} />
             </DialogContent>
             <DialogActions>
                 <Button onClick={onCancel} color="primary">

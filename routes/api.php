@@ -40,11 +40,7 @@ Route::prefix('posts')->group(function () {
 
         $user->save();
 
-
-        $post = new Post([
-            'title' => 'Test',
-            'content' => '<p>Hello World</p>'
-        ]);
+        $post = new Post($request->only(['content', 'title']));
         $post->author()->associate($user);
         $post->save();
 

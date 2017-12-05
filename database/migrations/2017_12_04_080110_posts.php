@@ -15,7 +15,6 @@ class Posts extends Migration
     {
         Schema::create('posts', function($collection)
         {
-            $collection->unique('id');
             $collection->index('title');
             $collection->index('author_id');
         });
