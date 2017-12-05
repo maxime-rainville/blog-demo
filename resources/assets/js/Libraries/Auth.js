@@ -44,7 +44,7 @@ export default class Auth {
     handleAuthentication(location) {
         if (!/access_token|id_token|error/.test(location.hash)) {
             console.error('handleAuthentication shouldn\'t be call without proper location parameter');
-            this.history.replace('/home');
+            this.history.replace('/');
             return;
         }
 
@@ -53,7 +53,7 @@ export default class Auth {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 this.setSession(authResult);
             } else if (err) {
-                this.history.replace('/home');
+                this.history.replace('/');
                 console.log(err);
             }
         });
@@ -77,7 +77,7 @@ export default class Auth {
         ));
 
         // navigate to the home route
-        this.history.replace('/home');
+        this.history.replace('/');
     }
 
     logout() {

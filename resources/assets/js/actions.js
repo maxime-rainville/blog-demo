@@ -64,3 +64,7 @@ export const receivePosts = (posts) => {
         posts
     }
 }
+
+export const editingNewPost = () => ({
+    type: 'EDITING_NEW_POST',
+})

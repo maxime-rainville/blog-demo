@@ -7,9 +7,11 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-import AccountCircle from 'material-ui-icons/AccountCircle';
-import Login from './Container/Login';
 import Grid from 'material-ui/Grid';
+
+import Login from './Container/Login';
+import CreatePostButton from './Container/CreatePostButton';
+import NewPostDialog from './Container/NewPostDialog';
 
 
 const styles = theme => ({
@@ -29,29 +31,28 @@ const styles = theme => ({
   }
 });
 
-function Root(props) {
-  const { classes, children, onLogin, onLogout } = props;
-  return (
-<div className={classes.root}>
-    <AppBar position="static">
-        <Toolbar>
-            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-                <MenuIcon />
-            </IconButton>
-            <Typography type="title" color="inherit" className={classes.flex}>
-                Title
-            </Typography>
-            <Login onLogin={onLogin} onLogout={onLogout} />
-        </Toolbar>
-    </AppBar>
+const Root = ({ classes, children, onLogin, onLogout }) => (
+    <div className={classes.root}>
+        <AppBar position="static">
+            <Toolbar>
+                <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+                    <MenuIcon />
+                </IconButton>
+                <Typography type="title" color="inherit" className={classes.flex}>
+                    Maxime's blog
+                </Typography>
+                <Login onLogin={onLogin} onLogout={onLogout} />
+            </Toolbar>
+        </AppBar>
 
-    <Grid container justify="center" className={classes.grid}>
-        {children}
-    </Grid>
+        <Grid container justify="center" className={classes.grid}>
+            {children}
+        </Grid>
 
-</div>
-  );
-}
+        <CreatePostButton />
+        <NewPostDialog />
+    </div>
+);
 
 Root.propTypes = {
   classes: PropTypes.object.isRequired,
