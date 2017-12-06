@@ -13,7 +13,7 @@ class Post extends Eloquent
 
     public function author()
     {
-        return $this->belongsTo('App\\User');
+        return $this->belongsTo('App\\User', 'email', 'author_email');
     }
 
     /**
@@ -34,5 +34,8 @@ class Post extends Eloquent
       return $summary;
     }
 
-    protected $appends = array('summary');
+    public function newCollection(array $models = [])
+    {
+        return new PostCollection($models);
+    }
 }
