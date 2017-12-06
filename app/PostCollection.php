@@ -14,6 +14,7 @@ class PostCollection extends Collection
                 'summary' => $post->summary,
                 'title' => $post->title,
                 'author' => $post->author,
+                'created_at' => $post->created_at->__toString(),
             ];
         });
     }

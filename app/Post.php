@@ -13,7 +13,7 @@ class Post extends Eloquent
 
     public function author()
     {
-        return $this->belongsTo('App\\User', 'email', 'author_email');
+        return $this->belongsTo('App\\User');
     }
 
     /**
