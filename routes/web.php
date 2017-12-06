@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/auth0', function () {
     return view('welcome');
 });
 
-Route::get('/auth0', function () {
+Route::get('/{id?}', function ($id=null) {
     return view('welcome');
 });

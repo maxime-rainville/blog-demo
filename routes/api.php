@@ -44,11 +44,16 @@ Route::prefix('posts')->group(function () {
         $post->author()->associate($user);
         $post->save();
 
+        return response()->json($post, 201);
+    });
+
+    Route::get('/{id}', function ($id) {
+        $post = Post::with('author')->get()->find($id);
         return response()->json($post, 200);
     });
 
     Route::get('/', function (Request $request) {
-        $posts = Post::with('author')->orderBy('created_at', 'desc')->get(['id','title', 'content']);
-        return response()->json($posts, 200);
+        $posts = Post::with('author')->orderBy('created_at', 'desc')->get();
+        return response()->json($posts->blogSummaries(), 200);
     });
 });
