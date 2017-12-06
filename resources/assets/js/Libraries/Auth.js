@@ -3,7 +3,7 @@ import { userLogin, userLogout } from '../actions';
 
 export default class Auth {
 
-    constructor(store) {
+    constructor(store, history) {
         this.auth0 = new auth0.WebAuth({
             domain: 'rainville.au.auth0.com',
             clientID: 'uIE6NhBJsPc23dGWmc5gbzzopVs9al6v',
@@ -20,6 +20,7 @@ export default class Auth {
         this.isAuthenticated = this.isAuthenticated.bind(this);
 
         this.store = store;
+        this.history = history;
     }
 
     init() {
@@ -36,10 +37,10 @@ export default class Auth {
             this.store.dispatch(userLogout());
         }
     }
-
-    setHistory(history) {
-        this.history = history;
-    }
+    //
+    // setHistory(history) {
+    //     this.history = history;
+    // }
 
     handleAuthentication(location) {
         if (!/access_token|id_token|error/.test(location.hash)) {

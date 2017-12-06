@@ -6,8 +6,9 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
+import HomeIcon from 'material-ui-icons/Home';
 import Grid from 'material-ui/Grid';
+import {Link} from 'react-router-dom';
 
 import Login from './Container/Login';
 import CreatePostButton from './Container/CreatePostButton';
@@ -27,7 +28,12 @@ const styles = theme => ({
     marginRight: 20,
   },
   grid: {
-      height: '100%'
+      height: '100%',
+      marginTop: theme.spacing.unit * 3,
+  },
+  homelink: {
+      textDecoration: 'none',
+      color: 'inherit'
   }
 });
 
@@ -35,11 +41,15 @@ const Root = ({ classes, children, onLogin, onLogout }) => (
     <div className={classes.root}>
         <AppBar position="static">
             <Toolbar>
-                <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-                    <MenuIcon />
-                </IconButton>
+                <Link to="/" className={classes.homelink}>
+                    <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+                        <HomeIcon />
+                    </IconButton>
+                </Link>
                 <Typography type="title" color="inherit" className={classes.flex}>
-                    Maxime's blog
+                    <Link to="/" className={classes.homelink}>
+                        Maxime's blog
+                    </Link>
                 </Typography>
                 <Login onLogin={onLogin} onLogout={onLogout} />
             </Toolbar>

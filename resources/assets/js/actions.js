@@ -1,4 +1,4 @@
-// import fetch from 'cross-fetch'
+import {history} from './history'
 
 export const userLogin = (access_token, id_token, expires_at, details) => {
     return {
@@ -30,7 +30,6 @@ export const editingSave = () => {
         form.append('title', state.editing.title);
         form.append('content', state.editing.content);
 
-        console.dir(state.editing.content)
         dispatch(editingSaving())
 
         const myInit = {
@@ -41,7 +40,7 @@ export const editingSave = () => {
 
         return fetch(`/api/posts`, myInit)
             .then(response => response.json())
-            .then(json => console.dir(json))
+            .then(json => history.push(`/${json._id}`))
     }
 }
 
@@ -51,16 +50,16 @@ export const editingSaving = () => ({
 
 export const fetchPosts = () => {
     return (dispatch, getState) => {
-        // dispatch(requestPosts(subreddit))
+        dispatch(fecthingPosts())
         return fetch(`/api/posts`)
             .then(response => response.json())
             .then(json => dispatch(receivePosts(json)))
     }
 }
 
-export const loadingPosts = () => {
+export const fecthingPosts = () => {
     return {
-        type: 'POST_LOADING',
+        type: 'POST_FETCHING',
     }
 }
 
@@ -68,6 +67,28 @@ export const receivePosts = (posts) => {
     return {
         type: 'POST_RECEIVE',
         posts
+    }
+}
+
+export const fetchPostFull = (id) => {
+    return (dispatch, getState) => {
+        dispatch(fecthingPostFull())
+        return fetch(`/api/posts/${id}`)
+            .then(response => response.json())
+            .then(json => dispatch(receivePostFull(json)))
+    }
+}
+
+export const fecthingPostFull = () => {
+    return {
+        type: 'POST_FETCHING_FULL',
+    }
+}
+
+export const receivePostFull = (post) => {
+    return {
+        type: 'POST_RECEIVE_FULL',
+        post
     }
 }
 

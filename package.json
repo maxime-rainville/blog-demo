@@ -20,6 +20,7 @@
     "dependencies": {
         "auth0-js": "^8.11.3",
         "cross-fetch": "^1.1.1",
+        "history": "^4.7.2",
         "laravel-mix-react": "^1.0.1",
         "material-design-icons": "^3.0.1",
         "material-ui": "^1.0.0-beta.22",
@@ -33,7 +34,9 @@
         "react-jsx-parser": "^1.1.5",
         "react-quill": "^1.2.2",
         "react-redux": "^5.0.6",
+        "react-router": "^4.2.0",
         "react-router-dom": "^4.2.2",
+        "react-router-redux": "^5.0.0-alpha.8",
         "redux": "^3.7.2",
         "redux-form": "^7.2.0",
         "redux-logger": "^3.0.6",

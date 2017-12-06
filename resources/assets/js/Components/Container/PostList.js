@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import PostListUI from '../UI/PostList';
-import { userValidate } from '../../actions'
 
 const mapStateToProps = state => {
     return state.post
