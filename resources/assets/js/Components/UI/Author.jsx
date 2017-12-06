@@ -7,7 +7,7 @@ import Typography from 'material-ui/Typography';
 const styles = theme => ({
     row: {
         display: 'flex',
-        justifyContent: 'right',
+        justifyContent: 'left',
     },
     avatar: {
         marginRight: theme.spacing.unit,
@@ -15,12 +15,12 @@ const styles = theme => ({
 });
 
 // const Author = ({picture, email, name, classes}) => (
-const Author = ({picture, email, name, classes}) => (
+const Author = ({picture, email, name, classes, date}) => (
     <div className={classes.row}>
         <Avatar alt={name} src={picture} className={classes.avatar} />
         <Typography type="caption">
-            Article by <em>{name}</em><br/>
-            <a href="mailto:{email}">{email}</a>
+            Publish by <a href={`mailto:${email}`}>{name}</a><br/>
+            at {date}
         </Typography>
     </div>
 )

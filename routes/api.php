@@ -26,7 +26,7 @@ Route::prefix('posts')->group(function () {
         $userData = $request->user();
 
 
-        $user = User::find($userData->email);
+        $user = User::where('email', $userData->email)->first();
         if (!$user) {
             $user = new User();
         }

@@ -27,7 +27,7 @@ const FullPost = ({post, loading, classes}) => (
                     {post.title}
                 </Typography>
                 <Typography type="body1" dangerouslySetInnerHTML={{ __html: post.content }} />
-                <Author {...post.author} />
+                <Author {...post.author} date={post.created_at} />
             </Paper>
         )}
 

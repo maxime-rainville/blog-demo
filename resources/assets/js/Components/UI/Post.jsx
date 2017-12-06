@@ -5,6 +5,7 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import { Link } from 'react-router-dom'
+import Author from './Author';
 
 const styles = {
   card: {
@@ -16,7 +17,7 @@ const styles = {
   },
 };
 
-const Post = ({_id, title, summary, classes}) => (
+const Post = ({_id, title, summary, author, classes, created_at}) => (
     <Card className={classes.card}>
         <CardMedia
           className={classes.media}
@@ -32,13 +33,13 @@ const Post = ({_id, title, summary, classes}) => (
             </Typography>
         </CardContent>
         <CardActions>
-            <Button dense color="primary">
-                Share
-            </Button>
             <Link to={`/${_id}`}><Button dense color="primary">
                     Read more
                 </Button></Link>
         </CardActions>
+        <CardContent>
+            <Author {...author} date={created_at} />
+        </CardContent>
   </Card>
 )
 

@@ -56030,6 +56030,10 @@ exports.default = createRippleHandler;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_styles__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_material_ui_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_router_dom__ = __webpack_require__(666);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Author__ = __webpack_require__(678);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
 
 
 
@@ -56050,7 +56054,9 @@ var Post = function Post(_ref) {
     var _id = _ref._id,
         title = _ref.title,
         summary = _ref.summary,
-        classes = _ref.classes;
+        author = _ref.author,
+        classes = _ref.classes,
+        created_at = _ref.created_at;
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_3_material_ui_Card___default.a,
         { className: classes.card },
@@ -56077,11 +56083,6 @@ var Post = function Post(_ref) {
             __WEBPACK_IMPORTED_MODULE_3_material_ui_Card__["CardActions"],
             null,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2_material_ui_Button___default.a,
-                { dense: true, color: 'primary' },
-                'Share'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_6_react_router_dom__["a" /* Link */],
                 { to: '/' + _id },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -56090,6 +56091,11 @@ var Post = function Post(_ref) {
                     'Read more'
                 )
             )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_3_material_ui_Card__["CardContent"],
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__Author__["a" /* default */], _extends({}, author, { date: created_at }))
         )
     );
 };
@@ -83912,6 +83918,8 @@ module.exports = function (css) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_Paper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_material_ui_Paper__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Loading__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Author__ = __webpack_require__(678);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 
 
 
@@ -83951,7 +83959,7 @@ var FullPost = function FullPost(_ref) {
                 post.title
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_material_ui_Typography___default.a, { type: 'body1', dangerouslySetInnerHTML: { __html: post.content } }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__Author__["a" /* default */], post.author)
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__Author__["a" /* default */], _extends({}, post.author, { date: post.created_at }))
         ),
         !loading && !post && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_5_material_ui_Paper___default.a,
@@ -84818,7 +84826,7 @@ var styles = function styles(theme) {
     return {
         row: {
             display: 'flex',
-            justifyContent: 'right'
+            justifyContent: 'left'
         },
         avatar: {
             marginRight: theme.spacing.unit
@@ -84831,7 +84839,8 @@ var Author = function Author(_ref) {
     var picture = _ref.picture,
         email = _ref.email,
         name = _ref.name,
-        classes = _ref.classes;
+        classes = _ref.classes,
+        date = _ref.date;
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: classes.row },
@@ -84839,18 +84848,15 @@ var Author = function Author(_ref) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_4_material_ui_Typography___default.a,
             { type: 'caption' },
-            'Article by ',
+            'Publish by ',
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'em',
-                null,
+                'a',
+                { href: 'mailto:' + email },
                 name
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { href: 'mailto:{email}' },
-                email
-            )
+            'at ',
+            date
         )
     );
 };
