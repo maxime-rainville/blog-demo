@@ -45,7 +45,7 @@ Route::prefix('posts')->group(function () {
         $post->save();
 
         return response()->json($post, 201);
-    });
+    })->middleware('isAdmin');
 
     Route::get('/{id}', function ($id) {
         $post = Post::with('author')->get()->find($id);

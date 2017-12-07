@@ -30,11 +30,24 @@ class JwtGuard implements Guard
 
     public function guest()
     {
+        if ($this->user()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
+    /**
+     * Return the user data from the JWT Token.
+     * @return array|false
+     */
     public function user()
     {
         $token = request()->header('authorization');
+        if (!$token) {
+            return false;
+        }
+
         $token = str_ireplace('Bearer ', '', $token);
 
         return $this->verifier->verifyAndDecode($token);
