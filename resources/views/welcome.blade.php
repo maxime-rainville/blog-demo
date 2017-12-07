@@ -16,6 +16,10 @@
     <body>
         <div id="root"></div>
 
+        <script type="text/javascript">
+        var auth0_client = {!! $auth0 !!};
+        </script>
+
         <script type="text/javascript" src="/js/main.js"></script>
     </body>
 </html>

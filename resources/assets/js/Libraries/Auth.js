@@ -4,14 +4,7 @@ import { userLogin, userLogout } from '../actions';
 export default class Auth {
 
     constructor(store, history) {
-        this.auth0 = new auth0.WebAuth({
-            domain: 'rainville.au.auth0.com',
-            clientID: 'uIE6NhBJsPc23dGWmc5gbzzopVs9al6v',
-            redirectUri: 'http://blog.rainville.local/auth0',
-            audience: 'https://rainville.au.auth0.com/userinfo',
-            responseType: 'token id_token',
-            scope: 'openid profile email'
-        });
+        this.auth0 = new auth0.WebAuth(window.auth0_client);
 
         this.init = this.init.bind(this);
         this.login = this.login.bind(this);
