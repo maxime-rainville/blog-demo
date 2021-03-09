@@ -18,7 +18,7 @@
         "lodash": "^4.17.4"
     },
     "dependencies": {
-        "auth0-js": "^8.11.3",
+        "auth0-js": "^9.13.2",
         "cross-fetch": "^1.1.1",
         "history": "^4.7.2",
         "laravel-mix-react": "^1.0.1",
