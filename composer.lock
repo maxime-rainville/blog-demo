@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "c90ea18b7954a98d3c2f82f432d81662",
@@ -317,19 +317,20 @@
         },
         {
             "name": "erusev/parsedown",
-            "version": "1.6.4",
+            "version": "1.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "fbe3fe878f4fe69048bb8a52783a09802004f548"
+                "reference": "cb17b6477dfff935958ba01325f2e8a2bfa6dab3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/fbe3fe878f4fe69048bb8a52783a09802004f548",
-                "reference": "fbe3fe878f4fe69048bb8a52783a09802004f548",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/cb17b6477dfff935958ba01325f2e8a2bfa6dab3",
+                "reference": "cb17b6477dfff935958ba01325f2e8a2bfa6dab3",
                 "shasum": ""
             },
             "require": {
+                "ext-mbstring": "*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
@@ -358,7 +359,11 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2017-11-14T20:44:03+00:00"
+            "support": {
+                "issues": "https://github.com/erusev/parsedown/issues",
+                "source": "https://github.com/erusev/parsedown/tree/1.7.x"
+            },
+            "time": "2019-12-30T22:54:17+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -4226,43 +4231,6 @@
     ],
     "packages-dev": [
         {
-            "name": "auth0/login",
-            "version": "5.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/auth0/laravel-auth0.git",
-                "reference": "1d83840fe755c4e624f7ff804abc597428818109"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/auth0/laravel-auth0/zipball/1d83840fe755c4e624f7ff804abc597428818109",
-                "reference": "1d83840fe755c4e624f7ff804abc597428818109",
-                "shasum": ""
-            },
-            "require": {
-                "auth0/auth0-php": "^5.0.0",
-                "illuminate/contracts": "5.*",
-                "illuminate/support": "5.*",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/controllers",
-                    "src/facade"
-                ],
-                "psr-0": {
-                    "Auth0\\Login\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Laravel plugin that helps authenticate with the auth0 service",
-            "time": "2017-08-30T19:52:33+00:00"
-        },
-        {
             "name": "filp/whoops",
             "version": "2.1.14",
             "source": {
@@ -4495,5 +4463,6 @@
     "platform": {
         "php": ">=7.0.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
 }
