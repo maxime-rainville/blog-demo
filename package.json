@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "auth0-js": "^8.11.3",
-        "cross-fetch": "^1.1.1",
+        "cross-fetch": "^3.1.5",
         "history": "^4.7.2",
         "laravel-mix-react": "^1.0.1",
         "material-design-icons": "^3.0.1",
